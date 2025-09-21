@@ -137,8 +137,9 @@ void inserirElemento()
 
 	if (atual != NULL && atual->valor == novo->valor){
 
-		cout << "Elemento ja existe!";
+		cout << "Elemento ja existe!" << endl;
 		free(novo);
+		return;
 	}
 
 	if(anterior == NULL){
@@ -156,42 +157,45 @@ void inserirElemento()
 
 void excluirElemento()
 {
-	int excluir;
+	  
+	if (primeiro == NULL) {
+        cout << "A lista esta vazia!" << endl;
+        return;
+    }
+
 	NO* atual = primeiro;
-	NO* anterior = NULL;
+    NO* anterior = NULL;
 
-	cout << "Por favor digite o valor que quer excluir: \n";
-	cin >> excluir;
-	
+    int excluir;
+    cout << "Digite o valor que quer excluir: ";
+    cin >> excluir;
 
-	while (atual != NULL)
-	{
-		if (atual->valor == excluir)
-		{
-				
-			if (anterior == NULL)
-			{
-				primeiro = atual->prox;
-			}
-			else
-			{
-				anterior->prox = atual->prox;
-			}
-				free(atual);
-				
-				cout << "numero excluido!";
-				return;
-		}		
-		
-		if(atual->valor > excluir)
-		{
-			cout << "Numero nao existe";
-			return;
-		}
+    
+    while (atual != NULL && atual->valor < excluir) {
+        anterior = atual;
+        atual = atual->prox;
+    }
 
-		anterior = atual;
-		atual = atual->prox;
-	}
+    if (atual != NULL && atual->valor == excluir) {
+
+		if (anterior == NULL){
+
+			primeiro = atual->prox;
+		} 
+
+        else{
+
+			anterior->prox = atual->prox;
+		} 
+
+        free(atual);
+        cout << "Numero excluido!" << endl;
+
+    } 
+
+	else {
+        cout << "Numero nao existe!" << endl;
+    }
 
 }
 
@@ -207,13 +211,13 @@ void buscarElemento()
 
 		if (aux->valor == num) 
 		{
-			cout << "numero encontrado";
+			cout << "numero encontrado" << endl;
 			return;
 		}
 
 		if(aux->valor > num) 
 		{
-			cout << "numeron nao encontrado";
+			cout << "numero nao encontrado" << endl;
 			break;
 		}
 
